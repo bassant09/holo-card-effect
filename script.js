@@ -323,4 +323,4 @@ this.makeCards()
 setInterval(function() {
     if(checkCardsMove()) return;
     resetAnimation();
-  }, 10000);
+  }, 15000);
