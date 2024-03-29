@@ -278,6 +278,7 @@ function getRandomIndex(array) {
 function resetAnimation() {
     const index= getRandomIndex(cards)
     cardsElement[index].classList.add('card-animation')
+    cards[index].characterVoice.volume = 0.1;
     cards[index].characterVoice.play()
 setTimeout(() => {
     cardsElement[index].classList.remove('card-animation')
