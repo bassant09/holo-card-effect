@@ -109,6 +109,12 @@ body{
         width: 370px;
     }
 }
+@media screen and (max-width: 1600px) {
+    .holo-card {
+        width: 250px;
+        height: 350px;
+    }
+}
 @media screen and (max-width: 1200px) {
     .holo-card {
         height: 250px;
