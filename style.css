@@ -103,6 +103,18 @@ body{
     min-height: 100vh;
     
 }
+@media screen and (max-width: 2000px) {
+    .holo-card {
+        height: 516px;
+        width: 370px;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .holo-card {
+        height: 250px;
+        width: 180px;
+    }
+}
 @media screen and (max-width: 1200px) {
     .holo-card {
         height: 250px;

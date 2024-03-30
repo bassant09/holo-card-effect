@@ -215,7 +215,6 @@
     
 ];
 function rotateCardAccordianToMouseMove(childCard,cardData) {
-  debugger;
   const rotationFactor = 3;
   childCard.addEventListener("mousemove", function (event) {
     const xAngle =
@@ -323,4 +322,4 @@ this.makeCards()
 setInterval(function() {
     if(checkCardsMove()) return;
     resetAnimation();
-  }, 15000);
+  }, 10000);
