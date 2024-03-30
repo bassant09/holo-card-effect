@@ -216,40 +216,55 @@
 ];
 function rotateCardAccordianToMouseMove(childCard,cardData) {
   const rotationFactor = 3;
-  
   childCard.addEventListener("mousemove", function (event) {
-    const xAngle =
-      (event.clientY / window.innerHeight - 0.5) * 45 * rotationFactor;
-    const yAngle =
-      (event.clientX / window.innerWidth - 0.5) * -45 * rotationFactor;
-      childCard.style.transform = `rotateX(${xAngle}deg) rotateY(${yAngle}deg)`;
+    handleRotationMove(event.clientX,event.clientY,childCard,rotationFactor)
   });
   childCard.addEventListener("touchmove", function (event) {
-    const xAngle =
-      (event.touches[0].clientY / window.innerHeight - 0.5) * 45 * rotationFactor;
-    const yAngle =
-      (event.touches[0].clientX/ window.innerWidth - 0.5) * -45 * rotationFactor;
-      childCard.style.transform = `rotateX(${xAngle}deg) rotateY(${yAngle}deg)`;
+    handleRotationMove(event.touches[0].clientX,event.touches[0].clientY,childCard,rotationFactor)
   });
   childCard.addEventListener("mouseleave", function () {
-  childCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+ handleRotationLeave(childCard)
   
   });
    childCard.addEventListener("touchleave", function () {
-  childCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+    handleRotationLeave(childCard)
   
   });
+} 
+function handleRotationMove(clientX,clientY,childCard,rotationFactor){
+    const xAngle =
+    (clientY / window.innerHeight - 0.5) * 45 * rotationFactor;
+  const yAngle =
+    (clientX / window.innerWidth - 0.5) * -45 * rotationFactor;
+    childCard.style.transform = `rotateX(${xAngle}deg) rotateY(${yAngle}deg)`;
+}
+function handleRotationLeave(childCard){
+    childCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+
 }
 function moveGradientBackGround(childCard,cardData) {
 //   const card = document.querySelector(".holo-card");
   const gradient = childCard.querySelector(".gradient-bg");
 
   childCard.addEventListener("mousemove", function (event) {
+    handleMoveGradientBackGround(event.clientX,event.clientY,cardData,gradient,childCard)    
+  });
+  childCard.addEventListener("touchmove", function (event) {
+    handleMoveGradientBackGround(event.touches[0].clientX,event.touches[0].clientY,cardData,gradient,childCard)    
+  });
+  childCard.addEventListener("mouseleave", function () {
+   handleLeaveGradientBackGround(cardData,gradient)
+  });
+  childCard.addEventListener("touchleave", function () {
+    handleLeaveGradientBackGround(cardData,gradient)
+   });
+}
+function handleMoveGradientBackGround(clientX,clientY,cardData,gradient,childCard){
     cardData.isMoving=true
     const rect = childCard.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
+    const mouseX = clientX - rect.left;
     const scaledX = (mouseX / rect.width) * 100;
-    const mouseY = event.clientY - rect.top;
+    const mouseY =   clientY - rect.top;
     const scaledY = (mouseY / rect.height) * 100;
     const percent = (scaledX + scaledY) / 2;
     const transparentGradient = "rgba(255,255,255,0)";
@@ -268,20 +283,11 @@ function moveGradientBackGround(childCard,cardData) {
     gradientList.push(`${transparentGradient} ${percent + 50}%`);
     gradient.style.background = `linear-gradient(128deg, ${gradientList.join(', ')})`;
     gradient.style.opacity = "0.4";
-    // cardDataTemp= ['rgba(255,255,255,0) 0%', ]
-    // gradient.style.background = `linear-gradient(125deg, rgba(255,255,255,0) ${
-    //   percent - 50
-    // }%, rgba(255,235,0,1) ${percent - 25}%, rgba(4,249,238,1) ${
-    //   percent - 10
-    // }%, rgba(214,0,255,1) ${percent + 10}%, rgba(145,255,128,1)  ${
-    //   percent + 25
-    // }%, rgba(255,255,255,0) ${percent + 50}%)`;
-    // gradient.style.opacity = "0.4";
-  });
-  childCard.addEventListener("mouseleave", function () {
+}
+function handleLeaveGradientBackGround(cardData,gradient){
+  
     cardData.isMoving=false
     gradient.style.opacity = "0";
-  });
 }
 function getRandomIndex(array) {
     return Math.floor(Math.random() * array.length);
@@ -334,4 +340,4 @@ this.makeCards()
 setInterval(function() {
     if(checkCardsMove()) return;
     resetAnimation();
-  }, 10000);
+  }, 15000);
