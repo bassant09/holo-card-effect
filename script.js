@@ -216,6 +216,7 @@
 ];
 function rotateCardAccordianToMouseMove(childCard,cardData) {
   const rotationFactor = 3;
+  
   childCard.addEventListener("mousemove", function (event) {
     const xAngle =
       (event.clientY / window.innerHeight - 0.5) * 45 * rotationFactor;
@@ -223,7 +224,18 @@ function rotateCardAccordianToMouseMove(childCard,cardData) {
       (event.clientX / window.innerWidth - 0.5) * -45 * rotationFactor;
       childCard.style.transform = `rotateX(${xAngle}deg) rotateY(${yAngle}deg)`;
   });
+  childCard.addEventListener("touchmove", function (event) {
+    const xAngle =
+      (event.touches[0].clientY / window.innerHeight - 0.5) * 45 * rotationFactor;
+    const yAngle =
+      (event.touches[0].clientX/ window.innerWidth - 0.5) * -45 * rotationFactor;
+      childCard.style.transform = `rotateX(${xAngle}deg) rotateY(${yAngle}deg)`;
+  });
   childCard.addEventListener("mouseleave", function () {
+  childCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+  
+  });
+   childCard.addEventListener("touchleave", function () {
   childCard.style.transform = "rotateX(0deg) rotateY(0deg)";
   
   });
